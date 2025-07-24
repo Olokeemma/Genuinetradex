@@ -1,0 +1,176 @@
+<!-- investment.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Investment Plans – GenuineTradeX</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #0d1117;
+      color: #ffffff;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    header {
+      background-color: #161b22;
+      padding: 40px 20px;
+      text-align: center;
+      animation: fadeInTop 1s ease-out;
+    }
+
+    header h1 {
+      color: #00ffcc;
+      margin: 0;
+      font-size: 2.5em;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 30px auto;
+      padding: 0 20px;
+      animation: fadeInUp 1.5s ease;
+    }
+
+    .plan {
+      background-color: #1f2937;
+      border: 1px solid #2f3b4d;
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 30px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      animation: zoomIn 1s ease forwards;
+      opacity: 0;
+    }
+
+    .plan:nth-child(2) { animation-delay: 0.5s; }
+    .plan:nth-child(3) { animation-delay: 0.8s; }
+    .plan:nth-child(4) { animation-delay: 1.1s; }
+
+    .plan:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 0 20px #00ffcc60;
+    }
+
+    .plan h2 {
+      color: #00ffcc;
+      margin-bottom: 10px;
+      font-size: 1.6em;
+    }
+
+    .plan ul {
+      padding-left: 20px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 25px;
+      background-color: #161b22;
+      color: #aaa;
+      animation: fadeInBottom 1s ease;
+    }
+
+    a {
+      color: #00ffcc;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .back-home-btn {
+      display: inline-block;
+      margin-top: 20px;
+      background-color: #00ffcc;
+      color: #0d1117;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-weight: bold;
+      transition: background-color 0.3s ease;
+    }
+
+    .back-home-btn:hover {
+      background-color: #00e6b8;
+    }
+
+    /* Animations */
+    @keyframes fadeInTop {
+      from { opacity: 0; transform: translateY(-40px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(40px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeInBottom {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes zoomIn {
+      from { opacity: 0; transform: scale(0.9); }
+      to { opacity: 1; transform: scale(1); }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Our Investment Plans</h1>
+  </header>
+
+  <div class="container">
+    <p>At <strong>GenuineTradeX</strong>, we provide flexible and rewarding investment packages tailored to your financial goals. Whether you're a beginner or seasoned trader, our plans offer the right balance of growth and security.</p>
+
+    <div class="plan">
+      <h2>🥉 Copper Plan</h2>
+      <p>Perfect for beginners. Start small and explore the crypto market with low risk.</p>
+      <ul>
+        <li>Minimum Investment: $100</li>
+        <li>ROI: 10% weekly</li>
+        <li>Duration: 2 Weeks</li>
+        <li>24/7 Support Access</li>
+      </ul>
+    </div>
+
+    <div class="plan">
+      <h2>🥈 Gold Plan</h2>
+      <p>Designed for consistent earners ready to scale their profits and portfolio.</p>
+      <ul>
+        <li>Minimum Investment: $500</li>
+        <li>ROI: 15% weekly</li>
+        <li>Duration: 1 Month</li>
+        <li>Priority Withdrawals</li>
+      </ul>
+    </div>
+
+    <div class="plan">
+      <h2>💎 Diamond Plan</h2>
+      <p>Tailored for experienced investors aiming for high returns and premium services.</p>
+      <ul>
+        <li>Minimum Investment: $1,000</li>
+        <li>ROI: 25% monthly</li>
+        <li>Duration: 2 Months</li>
+        <li>Personal Investment Manager</li>
+      </ul>
+    </div>
+
+    <a href="index.html" class="back-home-btn">← Back to Home</a>
+  </div>
+
+  <footer>
+    &copy; 2025 GenuineTradeX – All Rights Reserved.
+  </footer>
+
+</body>
+</html>
+

@@ -1,0 +1,172 @@
+<!-- crypto.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Crypto Trading – GenuineTradeX</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css"/>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #0d1117;
+      color: #ffffff;
+      margin: 0;
+      padding: 0;
+      line-height: 1.6;
+    }
+
+    header {
+      background-color: #161b22;
+      padding: 20px;
+      text-align: center;
+    }
+
+    header h1 {
+      color: #00ffcc;
+      margin: 0;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 30px auto;
+      padding: 0 20px;
+    }
+
+    section {
+      margin-bottom: 50px;
+    }
+
+    h2 {
+      color: #00ffcc;
+      margin-bottom: 10px;
+    }
+
+    .crypto-table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #1f2937;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .crypto-table th, .crypto-table td {
+      padding: 15px;
+      text-align: left;
+      border-bottom: 1px solid #2f3b4d;
+    }
+
+    .crypto-table th {
+      background-color: #161b22;
+      color: #00ffcc;
+    }
+
+    .crypto-table td {
+      color: #ccc;
+    }
+
+    .back-home {
+      display: inline-block;
+      margin-top: 30px;
+      color: #00ffcc;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .back-home:hover {
+      text-decoration: underline;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      background-color: #161b22;
+      color: #aaa;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Crypto Trading at GenuineTradeX</h1>
+  </header>
+
+  <div class="container">
+
+    <!-- About Crypto -->
+    <section data-aos="fade-up">
+      <h2>What is Crypto Trading?</h2>
+      <p>
+        Crypto trading is the process of buying and selling digital currencies like Bitcoin, Ethereum, and others with the goal of making profits. At GenuineTradeX, we offer advanced trading tools, real-time analytics, and dedicated support to help you maximize your earnings through secure and reliable crypto trading platforms.
+      </p>
+    </section>
+
+    <!-- Why Trade Crypto -->
+    <section data-aos="fade-up" data-aos-delay="100">
+      <h2>Why Trade with Us?</h2>
+      <ul>
+        <li>✅ Real-time Market Insights</li>
+        <li>✅ Secure & Transparent Transactions</li>
+        <li>✅ Multiple Wallet Support</li>
+        <li>✅ Beginner-Friendly and Pro Tools</li>
+        <li>✅ 24/7 Access to Crypto Markets</li>
+      </ul>
+    </section>
+
+    <!-- Live Prices -->
+    <section data-aos="fade-up" data-aos-delay="200">
+      <h2>Live Crypto Prices</h2>
+      <table class="crypto-table" id="cryptoTable">
+        <thead>
+          <tr>
+            <th>Coin</th>
+            <th>Price (USD)</th>
+            <th>24h Change</th>
+            <th>Market Cap</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Live data will be populated here -->
+        </tbody>
+      </table>
+    </section>
+
+    <a href="index.html" class="back-home">← Back to Home</a>
+  </div>
+
+  <footer>
+    &copy; 2025 GenuineTradeX – All Rights Reserved.
+  </footer>
+
+  <!-- AOS Animation -->
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <script>
+    AOS.init();
+  </script>
+
+  <!-- CoinGecko API for live crypto prices -->
+  <script>
+    async function loadCryptoPrices() {
+      const res = await fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=bitcoin,ethereum,binancecoin,solana,cardano&order=market_cap_desc&per_page=5&page=1&sparkline=false');
+      const data = await res.json();
+      const tbody = document.querySelector("#cryptoTable tbody");
+      data.forEach(coin => {
+        const row = `
+          <tr>
+            <td>${coin.name} (${coin.symbol.toUpperCase()})</td>
+            <td>$${coin.current_price.toLocaleString()}</td>
+            <td style="color: ${coin.price_change_percentage_24h >= 0 ? '#0f0' : '#f00'}">
+              ${coin.price_change_percentage_24h.toFixed(2)}%
+            </td>
+            <td>$${coin.market_cap.toLocaleString()}</td>
+          </tr>
+        `;
+        tbody.innerHTML += row;
+      });
+    }
+
+    loadCryptoPrices();
+  </script>
+</body>
+</html>

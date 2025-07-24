@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin Dashboard</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <section class="admin-dashboard fade-in">
+    <h2 class="center-text">Admin Dashboard</h2>
+
+    <div class="user-management">
+      <h3>Manage Users</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Email</th>
+            <th>Balance ($)</th>
+            <th>Add Funds</th>
+          </tr>
+        </thead>
+        <tbody id="userTableBody"></tbody>
+      </table>
+    </div>
+
+    <!-- ✅ Manual Fund Wallet Section -->
+    <div class="fund-wallet-section" style="margin-top: 50px;">
+      <h3 class="center-text">Manually Fund User Wallet</h3>
+      <div style="display: flex; flex-direction: column; align-items: center;">
+        <input type="email" id="fundEmail" placeholder="Enter user email" class="input" required />
+        <input type="number" id="fundAmount" placeholder="Enter amount $" class="input" required />
+        <button onclick="fundWallet()" class="cta-btn" style="margin-top: 15px;">Fund Wallet</button>
+      </div>
+    </div>
+
+    <button onclick="logoutAdmin()" class="cta-btn" style="margin-top: 30px;">Logout</button>
+  </section>
+
+  <script>
+    const users = JSON.parse(localStorage.getItem("users")) || [];
+
+    function loadUsers() {
+      const tbody = document.getElementById("userTableBody");
+      tbody.innerHTML = "";
+
+      users.forEach((user, index) => {
+        tbody.innerHTML += `
+          <tr>
+            <td>${user.email}</td>
+            <td>${user.balance || 0}</td>
+            <td>
+              <input type="number" id="amount${index}" placeholder="Amount" />
+              <button onclick="addFunds(${index})">Add</button>
+            </td>
+          </tr>
+        `;
+      });
+    }
+
+    function addFunds(index) {
+      const input = document.getElementById(`amount${index}`);
+      const amount = parseFloat(input.value);
+
+      if (!amount || amount <= 0) {
+        return alert("Enter valid amount");
+      }
+
+      users[index].balance = (parseFloat(users[index].balance) || 0) + amount;
+      localStorage.setItem("users", JSON.stringify(users));
+      alert("✅ Balance updated!");
+      loadUsers();
+    }
+
+    // ✅ Function to fund wallet by email
+    function fundWallet() {
+      const email = document.getElementById("fundEmail").value.trim();
+      const amount = parseFloat(document.getElementById("fundAmount").value);
+
+      if (!email || !amount || amount <= 0) {
+        return alert("Please enter a valid email and amount.");
+      }
+
+      const userIndex = users.findIndex(user => user.email === email);
+      if (userIndex === -1) {
+        return alert("❌ User not found.");
+      }
+
+      users[userIndex].balance = (parseFloat(users[userIndex].balance) || 0) + amount;
+      localStorage.setItem("users", JSON.stringify(users));
+      alert(`✅ ${amount} added to ${email}'s wallet.`);
+      loadUsers();
+    }
+
+    function logoutAdmin() {
+      localStorage.removeItem("isAdminLoggedIn");
+      window.location.href = "admin-login.html";
+    }
+
+    window.onload = () => {
+      if (localStorage.getItem("isAdminLoggedIn") !== "true") {
+        alert("Admin login required.");
+        window.location.href = "admin-login.html";
+      } else {
+        loadUsers();
+      }
+    };
+  </script>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>User Dashboard - Broker Site</title>
+  <link rel="stylesheet" href="styles.css"/>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <div class="dashboard-container">
+    <!-- Sidebar -->
+    <aside class="sidebar fade-in">
+      <h2 class="logo-text">GenuinetradeX</h2>
+      <nav>
+        <ul>
+          <li><a href="#">Dashboard</a></li>
+          <li><a href="#">Transactions</a></li>
+          <li><a href="#">Change Password</a></li>
+          <li><a href="login.html" onclick="logout()">Logout</a></li>
+        </ul>
+      </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="dashboard-main slide-up">
+      <h2 id="welcomeText">Welcome, User</h2>
+      <p><strong>Wallet Balance:</strong> $<span id="walletBalance">200.00</span></p>
+      <button class="cta-btn" onclick="startTrading()">Start Trading</button>
+      <canvas id="liveChart" width="400" height="150"></canvas>
+
+      <div class="action-buttons">
+        <button class="cta-btn" onclick="invest()">Invest</button>
+        <button class="cta-btn" onclick="withdraw()">Withdraw</button>
+      </div>
+    </main>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

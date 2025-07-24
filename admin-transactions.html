@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin Transactions</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <section class="admin-dashboard fade-in">
+    <h2 class="center-text">Admin – All Transactions</h2>
+
+    <div class="transaction-table">
+      <table>
+        <thead>
+          <tr>
+            <th>User Email</th>
+            <th>Type</th>
+            <th>Amount ($)</th>
+            <th>Date</th>
+          </tr>
+        </thead>
+        <tbody id="transactionBody"></tbody>
+      </table>
+    </div>
+
+    <button onclick="logoutAdmin()" class="cta-btn" style="margin-top: 30px;">Logout</button>
+  </section>
+
+  <script>
+    const transactions = JSON.parse(localStorage.getItem("transactions")) || [];
+
+    function loadTransactions() {
+      const tbody = document.getElementById("transactionBody");
+      tbody.innerHTML = "";
+
+      if (transactions.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="4">No transactions yet.</td></tr>`;
+        return;
+      }
+
+      transactions.reverse().forEach(tx => {
+        tbody.innerHTML += `
+          <tr>
+            <td>${tx.email}</td>
+            <td>${tx.type}</td>
+            <td>${tx.amount}</td>
+            <td>${tx.date}</td>
+          </tr>
+        `;
+      });
+    }
+
+    function logoutAdmin() {
+      localStorage.removeItem("isAdminLoggedIn");
+      window.location.href = "admin-login.html";
+    }
+
+    window.onload = () => {
+      if (localStorage.getItem("isAdminLoggedIn") !== "true") {
+        alert("Admin login required.");
+        window.location.href = "admin-login.html";
+      } else {
+        loadTransactions();
+      }
+    };
+  </script>
+</body>
+</html>

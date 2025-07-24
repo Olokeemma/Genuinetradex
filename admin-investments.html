@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin - Investment Management</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <section class="admin-dashboard fade-in">
+    <h2 class="center-text">Admin – Pending Investments</h2>
+
+    <div class="investment-table">
+      <table>
+        <thead>
+          <tr>
+            <th>User Email</th>
+            <th>Plan</th>
+            <th>Amount ($)</th>
+            <th>Status</th>
+            <th>Date</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="investmentBody"></tbody>
+      </table>
+    </div>
+
+    <button onclick="logoutAdmin()" class="cta-btn" style="margin-top: 30px;">Logout</button>
+  </section>
+
+  <script>
+    let investments = JSON.parse(localStorage.getItem("investments")) || [];
+    let users = JSON.parse(localStorage.getItem("users")) || [];
+
+    function renderInvestments() {
+      const tbody = document.getElementById("investmentBody");
+      tbody.innerHTML = "";
+
+      const pending = investments.filter(i => i.status === "Pending");
+
+      if (pending.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="6">No pending investments.</td></tr>`;
+        return;
+      }
+
+      pending.forEach((inv, index) => {
+        tbody.innerHTML += `
+          <tr>
+            <td>${inv.email}</td>
+            <td>${inv.plan}</td>
+            <td>${inv.amount}</td>
+            <td>${inv.status}</td>
+            <td>${inv.date}</td>
+            <td>
+              <button onclick="approve(${index})" class="btn-green">Approve</button>
+              <button onclick="decline(${index})" class="btn-red">Decline</button>
+            </td>
+          </tr>
+        `;
+      });
+    }
+
+    function approve(index) {
+      const pending = investments.filter(i => i.status === "Pending");
+      const investment = pending[index];
+
+      const userIndex = users.findIndex(u => u.email === investment.email);
+      if (userIndex === -1) return alert("User not found");
+
+      if (users[userIndex].balance < investment.amount) {
+        return alert("User has insufficient balance for this investment.");
+      }
+
+      // Deduct balance
+      users[userIndex].balance -= investment.amount;
+
+      // Update investment status
+      const originalIndex = investments.findIndex(i =>
+        i.email === investment.email &&
+        i.plan === investment.plan &&
+        i.date === investment.date
+      );
+      investments[originalIndex].status = "Approved";
+
+      // Save
+      localStorage.setItem("users", JSON.stringify(users));
+      localStorage.setItem("investments", JSON.stringify(investments));
+
+      alert("Investment Approved.");
+      renderInvestments();
+    }
+
+    function decline(index) {
+      const pending = investments.filter(i => i.status === "Pending");
+      const investment = pending[index];
+
+      const originalIndex = investments.findIndex(i =>
+        i.email === investment.email &&
+        i.plan === investment.plan &&
+        i.date === investment.date
+      );
+      investments[originalIndex].status = "Declined";
+
+      localStorage.setItem("investments", JSON.stringify(investments));
+
+      alert("Investment Declined.");
+      renderInvestments();
+    }
+
+    function logoutAdmin() {
+      localStorage.removeItem("isAdminLoggedIn");
+      window.location.href = "admin-login.html";
+    }
+
+    window.onload = () => {
+      if (localStorage.getItem("isAdminLoggedIn") !== "true") {
+        alert("Admin login required.");
+        window.location.href = "admin-login.html";
+      } else {
+        renderInvestments();
+      }
+    };
+  </script>
+</body>
+</html>

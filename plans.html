@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Investment Plans - Broker Site</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <section class="plans-section slide-up">
+    <h2 class="center-text">Choose an Investment Plan</h2>
+    <div class="plan-cards">
+      <!-- Copper Plan -->
+      <div class="plan-card">
+        <h3>Copper Plan</h3>
+        <p>Daily Return: 2%</p>
+        <p>Min Investment: $100</p>
+        <button class="cta-btn" onclick="selectPlan('Copper', 100)">Invest</button>
+      </div>
+
+      <!-- Silver Plan -->
+      <div class="plan-card">
+        <h3>Silver Plan</h3>
+        <p>Daily Return: 4%</p>
+        <p>Min Investment: $300</p>
+        <button class="cta-btn" onclick="selectPlan('Silver', 300)">Invest</button>
+      </div>
+
+      <!-- Gold Plan -->
+      <div class="plan-card">
+        <h3>Gold Plan</h3>
+        <p>Daily Return: 6%</p>
+        <p>Min Investment: $500</p>
+        <button class="cta-btn" onclick="selectPlan('Gold', 500)">Invest</button>
+      </div>
+    </div>
+  </section>
+
+  <script src="script.js"></script>
+</body>
+</html>

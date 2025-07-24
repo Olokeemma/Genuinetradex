@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin Login - Broker Site</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <section class="login-section fade-in">
+    <h2 class="center-text">Admin Login</h2>
+    <form class="auth-form" onsubmit="return adminLogin(event)">
+      <input type="text" id="adminUsername" placeholder="Admin Username" required />
+      <input type="password" id="adminPassword" placeholder="Password" required />
+      <button type="submit" class="cta-btn">Login</button>
+    </form>
+    <p class="center-text"><a href="index.html" style="color:#00ffcc;">← Back to Homepage</a></p>
+  </section>
+
+  <script src="script.js"></script>
+</body>
+</html>
